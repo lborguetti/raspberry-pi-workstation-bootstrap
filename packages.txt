@@ -1,4 +1,5 @@
 git
+mosh
 neovim
 tmux
 tree
