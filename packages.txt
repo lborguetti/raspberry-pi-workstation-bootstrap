@@ -3,3 +3,4 @@ mosh
 neovim
 tmux
 tree
+shellcheck
