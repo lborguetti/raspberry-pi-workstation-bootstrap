@@ -14,13 +14,12 @@ function package_exists() {
 }
 
 function do_package_install() {
-	sudo apt install "${@}" > /dev/null 2>&1 || false
+	DEBIAN_FRONTEND=noninteractive apt-get --yes --quiet install "${@}" > /dev/null || false
 }
 
 function do_packages() {
 
 package=""
-
 while IFS="" read -r package; do
     if ! package_exists "${package}"; then 
         echo -n "Ensuring the installation of the ${package} package: "
