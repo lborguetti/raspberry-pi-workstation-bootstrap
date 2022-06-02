@@ -24,6 +24,11 @@ function file_exists(){
 function do_dotfile_install(){
 
     _dirname=""
+    update_neovim=""
+
+    if echo "${*}" | grep ".vim$" > /dev/null ; then
+        update_neovim="true"
+    fi
 
     _dirname=$(dirname "${*}") || false
     mkdir --parents "${HOME}/${_dirname}" > /dev/null || false
@@ -88,11 +93,13 @@ done < ./packages.txt
 
 function do_neovim(){
 
-    vim +PlugUpdate +qall || false
-    vim +PlugUpgrade +qall || false
+    nvim +PlugUpdate  +qall > /dev/null 2>&1 || false
+    nvim +PlugUpgrade +qall > /dev/null 2>&1 || false
 
 }
 
 do_dotfiles
 do_packages
-do_neovim
+if [ "${update_neovim:-}" == "true" ]; then
+    do_neovim
+fi
